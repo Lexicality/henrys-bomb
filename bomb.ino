@@ -6,7 +6,7 @@ enum Mode {
 };
 
 Mode mode;
-LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+LiquidCrystal lcd(7, 6, 5, 4, 3, 2);
 
 byte numbers[] = {
 	255 - B00111111, //0
@@ -22,9 +22,9 @@ byte numbers[] = {
 };
 
 // shift
-int latchPin = 9,
-	dataPin  = 8,
-	clockPin = 7;
+int latchPin = 10,
+	dataPin  = 9,
+	clockPin = 8;
 
 void setup() {
 	// mode = Setup;
