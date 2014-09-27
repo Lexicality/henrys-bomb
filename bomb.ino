@@ -1,7 +1,7 @@
 #include <LiquidCrystal.h>
 
 enum Mode {
-	Setup,
+	Program,
 	Play
 };
 
@@ -9,7 +9,7 @@ Mode mode;
 LiquidCrystal lcd(7, 6, 5, 4, 3, 2);
 
 void setup() {
-	// mode = Setup;
+	// mode = Program;
 	mode = Play;
 	lcd.begin(21, 4);
 
@@ -18,8 +18,8 @@ void setup() {
 	lcd.setCursor(0, 1);
 	lcd.print("butts");
 
-	// if (mode == Setup) {
-	// 	setup_setup();
+	// if (mode == Program) {
+	// 	program_setup();
 	// } else {
 	// 	play_setup();
 	// }
@@ -36,8 +36,8 @@ void loop() {
 	lcd.setCursor(0, 3);
 	// print the number of seconds since reset:
 	lcd.print(millis()/1000);
-	// if (mode == Setup) {
-	// 	setup_loop();
+	// if (mode == Program) {
+	// 	program_loop();
 	// } else {
 	// 	play_loop();
 	// }
