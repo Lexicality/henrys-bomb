@@ -8,6 +8,19 @@ enum Mode {
 Mode mode;
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 
+byte numbers[] = {
+	255 - B00111111, //0
+	255 - B00000110, //1
+	255 - B01011011, //2
+	255 - B01001111, //3
+	255 - B01100110, //4
+	255 - B01101101, //5
+	255 - B01111101, //6
+	255 - B00000111, //7
+	255 - B01111111, //8
+	255 - B01101111, //9
+};
+
 // shift
 int latchPin = 9,
 	dataPin  = 8,
@@ -44,22 +57,19 @@ void setup() {
 void loop() {
 	lcd.setCursor(0, 0);
 	lcd.print("aaa 0                ");
-	digitalWrite(latchPin, LOW);
-	shiftOut(dataPin, clockPin, MSBFIRST, B00000001);
-	shiftOut(dataPin, clockPin, MSBFIRST, B00000000);
-	digitalWrite(latchPin, HIGH);
 	delay(1000);
 	byte data = 1;
-	for (int j = 0; j <= 8; j++) {
+	for (int j = 0; j < 10; j++) {
+		data = numbers[j];
 		lcd.setCursor(4, 0);
 		lcd.print(data, 2);
 
 		digitalWrite(latchPin, LOW);
-		shiftOut(dataPin, clockPin, MSBFIRST, B00000001);
+		shiftOut(dataPin, clockPin, MSBFIRST, B00000010);
 		shiftOut(dataPin, clockPin, MSBFIRST, data);
 		digitalWrite(latchPin, HIGH);
 		delay(1000);
-		data <<= 1;
+		// data <<= 1;
 	}
 
 	// (note: line 1 is the second row, since counting begins with 0):
