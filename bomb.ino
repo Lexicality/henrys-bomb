@@ -6,12 +6,12 @@ enum Mode {
 };
 
 Mode mode;
-LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+LiquidCrystal lcd(7, 6, 5, 4, 3, 2);
 
 // shift
-int latchPin = 9,
-	dataPin  = 8,
-	clockPin = 7;
+int latchPin = 12,//9,
+	dataPin  = 11,//8,
+	clockPin = 10;//7;
 
 void setup() {
 	// mode = Setup;
