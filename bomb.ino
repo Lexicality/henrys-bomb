@@ -45,10 +45,10 @@ char lastKey = 0;
 
 void loop() {
 	byte data = 1, port = 1;
-	// for (int j = 0; j < 8; j++) {
-	// 	sevenseg_write(j, j);
-	// }
-	// sevenseg_clear();
+	for (int j = 0; j < 8; j++) {
+		sevenseg_write(j, j);
+	}
+	sevenseg_clear();
 
 	char customKey = customKeypad.getKey();
 	if (customKey) {
