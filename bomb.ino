@@ -16,7 +16,7 @@ char hexaKeys[ROWS][COLS] = {
 	{1, 2, 3, 10},
 	{4, 5, 6, 11},
 	{7, 8, 9, 12},
-	{0, 0, 0, 13}, // * 0 #
+	{0,-1, 0, 13}, // * 0 #
 };
 byte rowPins[ROWS] = {22, 23, 24, 25}; //connect to the row pinouts of the keypad
 byte colPins[COLS] = {26, 27, 28, 29}; //connect to the column pinouts of the keypad
@@ -46,6 +46,8 @@ char lastKey = 0;
 void loop() {
 	char customKey = customKeypad.getKey();
 	if (customKey) {
+		if (customKey < 0)
+			customKey = 0;
 		lastKey = customKey;
 	}
 	// lcd.setCursor(0, 0);
