@@ -10,7 +10,7 @@ void program_loop() {
 	// Set game mode (A,B,C,D)
 	lcd.setCursor(1,0)
 	lcd.print("Set game mode (A,B,C,D)")
-	char gamemode;
+	char gamemode; // = customkeypad.getkey(); ????? Find out how to make it wait for a keypress 
 
 	// Set key cards (on/off)
 	int kcard; 
