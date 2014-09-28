@@ -1,6 +1,7 @@
 #include <LiquidCrystal.h>
 #include <Keypad.h>
-#include <EEPROM.h>
+#include "EEPROM.h"
+
 
 enum Mode {
 	Program,

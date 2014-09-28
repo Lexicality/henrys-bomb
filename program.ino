@@ -3,6 +3,7 @@
 void program_setup() {
 	lcd.setCursor(0,5)
 	lcd.print("Program Mode");
+
 }
 
 void program_loop() {
@@ -17,10 +18,10 @@ void program_loop() {
 	// Set code method (Automatically generated/manual)
 	int codem;
 
-	// Set no. of activation codes (numeric)
+	// Set no. of activation codes (numeric 1-9)
 	int ACodeNum;
 
-	// Set no. of deactivation codes (numeric)
+	// Set no. of deactivation codes (numeric 1-9)
 	int DCodeNum;
 
 	// Set strobe (on/off)
