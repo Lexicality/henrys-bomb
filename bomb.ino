@@ -23,6 +23,19 @@ char hexaKeys[ROWS][COLS] = {
 byte rowPins[ROWS] = {22, 23, 24, 25}; //connect to the row pinouts of the keypad
 byte colPins[COLS] = {26, 27, 28, 29}; //connect to the column pinouts of the keypad
 
+bool isSpecialInput(char key) {
+	return key == '*' || key == '#';
+}
+
+bool isLetterInput(char key) {
+	return key == 'a' || key == 'b' || key == 'c' || key == 'd';
+}
+
+bool isNumberInput(char key) {
+	return ! ( isLetterInput(key) || isSpecialInput(key) );
+}
+
+
 //initialize an instance of class NewKeypad
 Keypad customKeypad = Keypad( makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS);
 
