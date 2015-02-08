@@ -45,7 +45,7 @@ void program_loop()
 			hasShownMessage = true;
 			return;
 		}
-		key = customkeypad.getKey();
+		key = customKeypad.getKey();
 		if (!key) {
 			return;
 		}
@@ -76,7 +76,7 @@ void program_loop()
 			hasShownMessage = true;
 			return;
 		}
-		key = customkeypad.getKey();
+		key = customKeypad.getKey();
 		if (!key) {
 			return;
 		}
@@ -100,10 +100,6 @@ void program_loop()
 		hasShownMessage = false;
 		// TODO: Clear LCD
 		return;
-
-	case:
-		// do something
-		break;
 	default:
 		lcd.setCursor(0, 0);
 		lcd.print("Finished setup");
@@ -113,7 +109,7 @@ void program_loop()
 	// Set game mode (A,B,C,D)
 	lcd.setCursor(1, 0);
 	lcd.print("Set game mode (A,B,C,D)");
-	char gamemode; // = customkeypad.getkey(); ????? Find out how to make it wait for a keypress
+	char gamemode; // = customKeypad.getkey(); ????? Find out how to make it wait for a keypress
 
 	// Set key cards (on/off)
 	int kcard;
