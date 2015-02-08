@@ -37,8 +37,23 @@ void resetMultiInput()
 
 uint8_t parseMultiInput()
 {
-	// TODO
-	return 0;
+	// Detect if the input is too big. TODO: Some kind of error message?
+	if (multiInput[0] >= '2') { // Abuse that '1' < '2'
+		if (multiInput[0] > '2') {
+			return 0;
+		} else if (multiInput[1] >= '5') {
+			if (multiInput[1] > '5' || multiInput[2] > '5') {
+				return 0;
+			}
+		}
+	}
+	// lazyness loop unrolling. It'll always be 3 due to 8 bit requirements
+	uint8_t res = 0;
+	res += (multiInput[0] - '0') * 100;
+	res += (multiInput[1] - '0') * 10;
+	res += (multiInput[2] - '0') * 1;
+
+	return res;
 }
 
 uint8_t getMultiInput()
