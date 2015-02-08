@@ -29,12 +29,10 @@ void setup_setup()
 
 const int maxInputs = 3;
 char multiInput[maxInputs];
-int numInputs;
 
 void resetMultiInput()
 {
 	memset(multiInput, '0', maxInputs);
-	numInputs = 1;
 }
 
 uint8_t parseMultiInput()
@@ -52,15 +50,13 @@ uint8_t getMultiInput()
 		return 0;
 
 	// Add key to current inputs
-	multiInput[maxInputs - numInputs] = key;
+	for (int i = 0; i < maxInputs - 1; i++) {
+		multiInput[i] = multiInput[i + 1];
+	}
+	multiInput[maxInputs - 1] = key;
 
 	lcd.setCursor(0, 3);
 	lcd.write(multiInput, maxInputs); // Write as buffer
-
-	numInputs += 1;
-	if (numInputs >= maxInputs) {
-		numInputs = 1;
-	}
 	return 0;
 }
 
