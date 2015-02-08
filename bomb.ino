@@ -7,6 +7,18 @@ enum Mode {
 	Play
 };
 
+enum EpromSettings : int {
+	EPGamemode = 0,
+	EPKeycardsEnabled,
+	EPArmLength,
+	EPDisarmLength,
+	EPCodeMode,
+	EPNumArmCodes,
+	EPNumDisarmCodes,
+	EPStrobesEnabled,
+	EPPiezosEnabled,
+};
+
 Mode mode;
 LiquidCrystal lcd(7, 6, 5, 4, 3, 2);
 
@@ -53,8 +65,8 @@ Keypad customKeypad = Keypad(makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS)
 
 void setup()
 {
-	// mode = Setup;
-	mode = Play;
+	mode = Setup;
+	//mode = Play;
 	lcd.begin(21, 4);
 
 	sevenseg_setup();
@@ -62,11 +74,11 @@ void setup()
 	lcd.setCursor(0, 1);
 	lcd.print("butts");
 
-	 if (mode == Setup) {
-	 	setup_setup();
-	 } else {
-	 	play_setup();
-	 }
+	if (mode == Setup) {
+		setup_setup();
+	} else {
+		play_setup();
+	}
 }
 
 char lastKey = 0;
@@ -86,12 +98,12 @@ void loop()
 	// sevenseg_clear();
 
 	// (note: line 1 is the second row, since counting begins with 0):
-	lcd.setCursor(0, 3);
+	//lcd.setCursor(0, 3);
 	// print the number of seconds since reset:
-	lcd.print(millis() / 1000);
-	 if (mode == Setup) {
-	 	setup_loop();
-	 } else {
-	 	play_loop();
-	 }
+	//lcd.print(millis() / 1000);
+	if (mode == Setup) {
+		setup_loop();
+	} else {
+		play_loop();
+	}
 }

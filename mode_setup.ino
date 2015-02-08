@@ -15,14 +15,16 @@ SetupStage setupStage;
 bool hasShownMessage;
 bool isAllDone;
 
-const int maxArmInputs = 4;
-char armInput[maxArmInputs];
+const int maxInputs = 3;
+char multiInput[maxInputs];
 int numArmInputs;
 
 void setup_setup()
 {
 	lcd.setCursor(0, 5);
 	lcd.print("Program Mode");
+
+	memset(multiInput, '0', maxInputs);
 
 	setupStage = GameMode;
 	hasShownMessage = false;
@@ -31,12 +33,16 @@ void setup_setup()
 	numArmInputs = 0;
 }
 
-
-void writeMultipleChoice(String message, String a, String b, String c, String d)
+void writeHeader(String message)
 {
 	lcd.clear();
 	lcd.setCursor(0, 0);
 	lcd.print(message);
+}
+
+void writeMultipleChoice(String message, String a, String b, String c, String d)
+{
+	writeHeader(message);
 	lcd.setCursor(0, 2);
 	lcd.print("A: ");
 	lcd.print(a);
@@ -53,9 +59,7 @@ void writeMultipleChoice(String message, String a, String b, String c, String d)
 
 void writeMultipleChoice(String message, String a, String b)
 {
-	lcd.clear();
-	lcd.setCursor(0, 0);
-	lcd.print(message);
+	writeHeader(message);
 	lcd.setCursor(0, 2);
 	lcd.print("A: ");
 	lcd.print(a);
@@ -73,40 +77,43 @@ void setup_loop()
 	switch (setupStage) {
 	case GameMode: {
 		if (!hasShownMessage) {
-			lcd.setCursor(0, 0);
-			lcd.print("What's yer gamemode");
+			writeMultipleChoice("Pick a gamemode", "Butts", "Butts", "Butts", "Butts");
 			hasShownMessage = true;
 			return;
 		}
 		key = customKeypad.getKey();
-		if (!key) {
-			return;
-		}
-		if (!isLetterInput(key)) {
+		if (!key || !isLetterInput(key)) {
 			return;
 		}
 		int gamemode = static_cast<int>(key);
-		EEPROM.write(0, gamemode);
+		EEPROM.write(EPGamemode, gamemode);
 
 		// reset for the next stage
 		setupStage = KeyCard;
 		hasShownMessage = false;
-		// TODO: Clear LCD
+		lcd.clear();
 		return;
 	}
 	case KeyCard: {
-		// blah  blah blah see above
+		if (!hasShownMessage) {
+			writeMultipleChoice("Keycards enabled?", "Yes", "No");
+			hasShownMessage = true;
+			return;
+		}
+		key = customKeypad.getKey();
+		if (!key || !isLetterInput(key) || !(key == 'a' || key == 'b')) {
+			return;
+		}
+		EEPROM.write(EPKeycardsEnabled, key == 'a' ? 1 : 0);
 
 		// reset for the next stage
-		setupStage = CodeMethod;
+		setupStage = ArmTime;
 		hasShownMessage = false;
-		// TODO: Clear LCD
 		return;
 	}
 	case ArmTime: {
 		if (!hasShownMessage) {
-			lcd.setCursor(0, 0);
-			lcd.print("What's yer Arrrmtime");
+			writeHeader("What's your arm time?");
 			hasShownMessage = true;
 			return;
 		}
@@ -119,15 +126,21 @@ void setup_loop()
 			return;
 		}
 		// Add key to current inputs
-		armInput[numArmInputs] = key;
+		multiInput[numArmInputs] = key;
 		numArmInputs += 1;
-		if (numArmInputs < maxArmInputs) {
+
+		lcd.setCursor(0, 2);
+		lcd.write(multiInput, maxInputs);
+		lcd.write(" seconds");
+
+		if (numArmInputs < maxInputs) {
 			return;
 		}
 		// all done
 
+		int armTime = 0;
 		// TODO: Transfer array of characters to actual number here
-		// TODO: Store number
+		EEPROM.write(EPArmLength, armTime);
 
 		// reset for the next stage
 		setupStage = CodeMethod;
@@ -136,6 +149,7 @@ void setup_loop()
 		return;
 	}
 	default: {
+		lcd.clear();
 		lcd.setCursor(0, 0);
 		lcd.print("Finished setup");
 		isAllDone = true;
@@ -146,9 +160,7 @@ void setup_loop()
 	   FIXME: This is probably no longer necessary. (Probably?)
 
 	   // Set game mode (A,B,C,D)
-	   lcd.setCursor(1, 0);
-	   lcd.print("Set game mode (A,B,C,D)");
-	   char gamemode; // = customKeypad.getkey(); ????? Find out how to make it wait for a keypress
+	   char gamemode;
 
 	   // Set key cards (on/off)
 	   int kcard;
