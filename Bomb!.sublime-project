@@ -3,7 +3,20 @@
 	[
 		{
 			"follow_symlinks": true,
-			"path": "."
+			"path": ".",
+			"file_exclude_patterns" :[
+				"*.sln",
+				"*.sdf",
+				"*.suo",
+				"*.vcxproj*",
+				"*.opensdf",
+			],
+			"folder_exclude_patterns":
+			[
+				"Visual Micro",
+				"Debug",
+				"Release"
+			]
 		}
 	]
 }
