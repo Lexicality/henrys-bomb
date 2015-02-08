@@ -15,22 +15,53 @@ SetupStage setupStage;
 bool hasShownMessage;
 bool isAllDone;
 
-const int maxInputs = 3;
-char multiInput[maxInputs];
-int numArmInputs;
-
 void setup_setup()
 {
 	lcd.setCursor(0, 5);
 	lcd.print("Program Mode");
 
-	memset(multiInput, '0', maxInputs);
-
 	setupStage = GameMode;
 	hasShownMessage = false;
 	isAllDone = false;
 
-	numArmInputs = 0;
+	resetMultiInput();
+}
+
+const int maxInputs = 3;
+char multiInput[maxInputs];
+int numInputs;
+
+void resetMultiInput()
+{
+	memset(multiInput, '0', maxInputs);
+	numInputs = 1;
+}
+
+uint8_t parseMultiInput()
+{
+	// TODO
+	return 0;
+}
+
+uint8_t getMultiInput()
+{
+	char key = customKeypad.getKey();
+	if (key == '#')
+		return parseMultiInput();
+	else if (!key || !isNumberInput(key))
+		return 0;
+
+	// Add key to current inputs
+	multiInput[maxInputs - numInputs] = key;
+
+	lcd.setCursor(0, 3);
+	lcd.write(multiInput, maxInputs); // Write as buffer
+
+	numInputs += 1;
+	if (numInputs >= maxInputs) {
+		numInputs = 1;
+	}
+	return 0;
 }
 
 void writeHeader(String message)
@@ -101,7 +132,7 @@ void setup_loop()
 			return;
 		}
 		key = customKeypad.getKey();
-		if (!key || !isLetterInput(key) || !(key == 'a' || key == 'b')) {
+		if (!key || !(key == 'a' || key == 'b')) {
 			return;
 		}
 		EEPROM.write(EPKeycardsEnabled, key == 'a' ? 1 : 0);
@@ -114,33 +145,16 @@ void setup_loop()
 	case ArmTime: {
 		if (!hasShownMessage) {
 			writeHeader("What's your arm time?");
+			lcd.setCursor(0, 1);
+			lcd.print("Press # to confirm");
 			hasShownMessage = true;
 			return;
 		}
-		key = customKeypad.getKey();
-		if (!key) {
+		uint8_t len = getMultiInput();
+		if (!len)
 			return;
-		}
-		// Avoid letters
-		if (!isNumberInput(key)) {
-			return;
-		}
-		// Add key to current inputs
-		multiInput[numArmInputs] = key;
-		numArmInputs += 1;
 
-		lcd.setCursor(0, 2);
-		lcd.write(multiInput, maxInputs);
-		lcd.write(" seconds");
-
-		if (numArmInputs < maxInputs) {
-			return;
-		}
-		// all done
-
-		int armTime = 0;
-		// TODO: Transfer array of characters to actual number here
-		EEPROM.write(EPArmLength, armTime);
+		EEPROM.write(EPArmLength, len);
 
 		// reset for the next stage
 		setupStage = CodeMethod;
