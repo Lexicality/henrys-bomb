@@ -32,6 +32,39 @@ void setup_setup()
 }
 
 
+void writeMultipleChoice(String message, String a, String b, String c, String d)
+{
+	lcd.clear();
+	lcd.setCursor(0, 0);
+	lcd.print(message);
+	lcd.setCursor(0, 2);
+	lcd.print("A: ");
+	lcd.print(a);
+	lcd.setCursor(11, 2);
+	lcd.print("B: ");
+	lcd.print(b);
+	lcd.setCursor(0, 3);
+	lcd.print("C: ");
+	lcd.print(c);
+	lcd.setCursor(11, 3);
+	lcd.print("D: ");
+	lcd.print(d);
+}
+
+void writeMultipleChoice(String message, String a, String b)
+{
+	lcd.clear();
+	lcd.setCursor(0, 0);
+	lcd.print(message);
+	lcd.setCursor(0, 2);
+	lcd.print("A: ");
+	lcd.print(a);
+	lcd.setCursor(0, 3);
+	lcd.print("B: ");
+	lcd.print(b);
+}
+
+
 void setup_loop()
 {
 	if (isAllDone) return;
