@@ -147,6 +147,8 @@ void setup_loop()
 			writeHeader("How long to arm?");
 			lcd.setCursor(0, 1);
 			lcd.print("Press # to confirm");
+			lcd.setCursor(maxInputs + 1, 3);
+			lcd.print("seconds");
 			hasShownMessage = true;
 			return;
 		}
