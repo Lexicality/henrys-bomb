@@ -19,8 +19,11 @@ char hexaKeys[ROWS][COLS] = {
 	{ 7, 8, 9, 12 },
 	{ 0, -1, 0, 13 }, // * 0 #
 };
-byte rowPins[ROWS] = { 22, 23, 24, 25 }; //connect to the row pinouts of the keypad
-byte colPins[COLS] = { 26, 27, 28, 29 }; //connect to the column pinouts of the keypad
+//byte rowPins[ROWS] = { 22, 23, 24, 25 }; //connect to the row pinouts of the keypad
+//byte colPins[COLS] = { 26, 27, 28, 29 }; //connect to the column pinouts of the keypad
+// Bullshit caused by idiotic plugging
+byte rowPins[ROWS] = { 26, 27, 29, 28 }; //connect to the row pinouts of the keypad
+byte colPins[COLS] = { 22, 23, 24, 25 }; //connect to the column pinouts of the keypad
 
 bool isSpecialInput(char key)
 {
