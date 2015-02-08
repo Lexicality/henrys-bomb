@@ -144,7 +144,7 @@ void setup_loop()
 	}
 	case ArmTime: {
 		if (!hasShownMessage) {
-			writeHeader("What's your arm time?");
+			writeHeader("How long to arm?");
 			lcd.setCursor(0, 1);
 			lcd.print("Press # to confirm");
 			hasShownMessage = true;
