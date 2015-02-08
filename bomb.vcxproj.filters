@@ -16,15 +16,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="bomb.ino" />
-    <None Include="play.ino" />
-    <None Include="program.ino" />
     <None Include="sevenseg.ino" />
+    <None Include="mode_play.ino" />
+    <None Include="mode_setup.ino" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Visual Micro\.bomb.vsarduino.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="stuff.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
