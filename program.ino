@@ -9,18 +9,19 @@ enum SetupStage {
 	Piezos,
 	ArmTime,
 	Done
-}
+};
 
 SetupStage setupStage;
 bool hasShownMessage;
 bool isAllDone;
 
 const int maxArmInputs = 4;
-char armInput[ maxArmInputs ];
+char armInput[maxArmInputs];
 int numArmInputs;
 
-void program_setup() {
-	lcd.setCursor(0,5)
+void program_setup()
+{
+	lcd.setCursor(0, 5);
 	lcd.print("Program Mode");
 
 	setupStage = GameMode;
@@ -31,86 +32,87 @@ void program_setup() {
 }
 
 
-void program_loop() {
+void program_loop()
+{
 	if (isAllDone) return;
 
 	char key;
 	switch (setupStage) {
-		case GameMode:
-			if (! hasShownMessage) {
-				lcd.setCursor(0,0);
-				lcd.print("What's yer gamemode");
-				hasShownMessage = true;
-				return;
-			}
-			key = customkeypad.getKey();
-			if (!key) {
-				return;
-			}
-			if ( ! isLetterInput(key) ) {
-				return;
-			}
-			int gamemode = static_cast<int>(key);
-			EEPROM.write(0, gamemode);
-
-			// reset for the next stage
-			setupStage = KeyCard;
-			hasShownMessage = false;
-			// TODO: Clear LCD
+	case GameMode:
+		if (!hasShownMessage) {
+			lcd.setCursor(0, 0);
+			lcd.print("What's yer gamemode");
+			hasShownMessage = true;
 			return;
-		case KeyCard:
-			// blah  blah blah see above
-
-			// reset for the next stage
-			setupStage = CodeMethod;
-			hasShownMessage = false;
-			// TODO: Clear LCD
+		}
+		key = customkeypad.getKey();
+		if (!key) {
 			return;
-
-		case ArmTime:
-			if (! hasShownMessage) {
-				lcd.setCursor(0,0);
-				lcd.print("What's yer Arrrmtime");
-				hasShownMessage = true;
-				return;
-			}
-			key = customkeypad.getKey();
-			if (!key) {
-				return;
-			}
-			// Avoid letters
-			if ( ! isNumberInput(key) ) {
-				return;
-			}
-			// Add key to current inputs
-			armInput[ numArmInputs ] = key;
-			numArmInputs += 1;
-			if (numArmInputs < maxArmInputs) {
-				return;
-			}
-			// all done
-
-			// TODO: Transfer array of characters to actual number here
-			// TODO: Store number
-
-			// reset for the next stage
-			setupStage = CodeMethod;
-			hasShownMessage = false;
-			// TODO: Clear LCD
+		}
+		if (!isLetterInput(key)) {
 			return;
+		}
+		int gamemode = static_cast<int>(key);
+		EEPROM.write(0, gamemode);
 
-		case :
-			// do something
-			break;
-		default:
-			lcd.setCursor(0,0);
-			lcd.print("Finished setup");
-			isAllDone = true;
-			// do something
+		// reset for the next stage
+		setupStage = KeyCard;
+		hasShownMessage = false;
+		// TODO: Clear LCD
+		return;
+	case KeyCard:
+		// blah  blah blah see above
+
+		// reset for the next stage
+		setupStage = CodeMethod;
+		hasShownMessage = false;
+		// TODO: Clear LCD
+		return;
+
+	case ArmTime:
+		if (!hasShownMessage) {
+			lcd.setCursor(0, 0);
+			lcd.print("What's yer Arrrmtime");
+			hasShownMessage = true;
+			return;
+		}
+		key = customkeypad.getKey();
+		if (!key) {
+			return;
+		}
+		// Avoid letters
+		if (!isNumberInput(key)) {
+			return;
+		}
+		// Add key to current inputs
+		armInput[numArmInputs] = key;
+		numArmInputs += 1;
+		if (numArmInputs < maxArmInputs) {
+			return;
+		}
+		// all done
+
+		// TODO: Transfer array of characters to actual number here
+		// TODO: Store number
+
+		// reset for the next stage
+		setupStage = CodeMethod;
+		hasShownMessage = false;
+		// TODO: Clear LCD
+		return;
+
+	case:
+		// do something
+		break;
+	default:
+		lcd.setCursor(0, 0);
+		lcd.print("Finished setup");
+		isAllDone = true;
+		// do something
 	}
 	// Set game mode (A,B,C,D)
-	lcd.setCursor(1,0)
-	lcd.print("Set game mode (A,B,C,D)")
+	lcd.setCursor(1, 0);
+	lcd.print("Set game mode (A,B,C,D)");
 	char gamemode; // = customkeypad.getkey(); ????? Find out how to make it wait for a keypress
 
 	// Set key cards (on/off)

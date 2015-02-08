@@ -31,14 +31,15 @@ byte digits[] = {
 
 // shift
 int latchPin = 10,
-	dataPin  = 9,
-	clockPin = 8;
+dataPin = 9,
+clockPin = 8;
 
 // green/white  latch 9
 // orange/brown data  8
 // yellow/black clock 7
 
-void sevenseg_setup() {
+void sevenseg_setup()
+{
 	pinMode(latchPin, OUTPUT);
 	pinMode(clockPin, OUTPUT);
 	pinMode(dataPin, OUTPUT);
@@ -53,7 +54,8 @@ void sevenseg_setup() {
 	digitalWrite(latchPin, HIGH);
 }
 
-void sevenseg_write(int which, int what) {
+void sevenseg_write(int which, int what)
+{
 	byte data = numbers[what];
 	byte port = digits[which];
 	digitalWrite(latchPin, LOW);
@@ -62,7 +64,8 @@ void sevenseg_write(int which, int what) {
 	digitalWrite(latchPin, HIGH);
 }
 
-void sevenseg_clear() {
+void sevenseg_clear()
+{
 	digitalWrite(latchPin, LOW);
 	shiftOut(dataPin, clockPin, MSBFIRST, 0);
 	shiftOut(dataPin, clockPin, MSBFIRST, 0);

@@ -1,23 +1,24 @@
-	Long AAutoCode1
-	Long AAutoCode2
-	Long AAutoCode3
-	Long AAutoCode4
-	Long AAutoCode5
-	Long AAutoCode6
-	Long AAutoCode7
-	Long AAutoCode8
-	Long AAutoCode9
-	Long DAutoCode1
-	Long DAutoCode2
-	Long DAutoCode3
-	Long DAutoCode4
-	Long DAutoCode5
-	Long DAutoCode6
-	Long DAutoCode7
-	Long DAutoCode8
-	Long DAutoCode9
+long AAutoCode1;
+long AAutoCode2;
+long AAutoCode3;
+long AAutoCode4;
+long AAutoCode5;
+long AAutoCode6;
+long AAutoCode7;
+long AAutoCode8;
+long AAutoCode9;
+long DAutoCode1;
+long DAutoCode2;
+long DAutoCode3;
+long DAutoCode4;
+long DAutoCode5;
+long DAutoCode6;
+long DAutoCode7;
+long DAutoCode8;
+long DAutoCode9;
 
-void play_setup() {
+void play_setup()
+{
 	randomSeed(analogRead(0)); //Get floating data for random number generator from unused analog pin
 	AAutoCode1 = random(10000000, 99999999);
 	AAutoCode2 = random(10000000, 99999999);
@@ -42,6 +43,7 @@ void play_setup() {
 
 }
 
-void play_loop() {
+void play_loop()
+{
 
 }
