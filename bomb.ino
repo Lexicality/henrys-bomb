@@ -2,7 +2,6 @@
 #include <Keypad.h>
 #include "EEPROM.h"
 
-
 enum Mode {
 	Program,
 	Play

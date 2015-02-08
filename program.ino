@@ -38,7 +38,7 @@ void program_loop()
 
 	char key;
 	switch (setupStage) {
-	case GameMode:
+	case GameMode: {
 		if (!hasShownMessage) {
 			lcd.setCursor(0, 0);
 			lcd.print("What's yer gamemode");
@@ -60,7 +60,8 @@ void program_loop()
 		hasShownMessage = false;
 		// TODO: Clear LCD
 		return;
-	case KeyCard:
+	}
+	case KeyCard: {
 		// blah  blah blah see above
 
 		// reset for the next stage
@@ -68,8 +69,8 @@ void program_loop()
 		hasShownMessage = false;
 		// TODO: Clear LCD
 		return;
-
-	case ArmTime:
+	}
+	case ArmTime: {
 		if (!hasShownMessage) {
 			lcd.setCursor(0, 0);
 			lcd.print("What's yer Arrrmtime");
@@ -100,41 +101,47 @@ void program_loop()
 		hasShownMessage = false;
 		// TODO: Clear LCD
 		return;
-	default:
+	}
+	default: {
 		lcd.setCursor(0, 0);
 		lcd.print("Finished setup");
 		isAllDone = true;
 		// do something
 	}
-	// Set game mode (A,B,C,D)
-	lcd.setCursor(1, 0);
-	lcd.print("Set game mode (A,B,C,D)");
-	char gamemode; // = customKeypad.getkey(); ????? Find out how to make it wait for a keypress
+	}
+	/*
+	   FIXME: This is probably no longer necessary. (Probably?)
 
-	// Set key cards (on/off)
-	int kcard;
+	   // Set game mode (A,B,C,D)
+	   lcd.setCursor(1, 0);
+	   lcd.print("Set game mode (A,B,C,D)");
+	   char gamemode; // = customKeypad.getkey(); ????? Find out how to make it wait for a keypress
 
-	// Set code method (Automatically generated/manual)
-	int codem;
+	   // Set key cards (on/off)
+	   int kcard;
 
-	// Set no. of activation codes (numeric 1-9)
-	int ACodeNum;
+	   // Set code method (Automatically generated/manual)
+	   int codem;
 
-	// Set no. of deactivation codes (numeric 1-9)
-	int DCodeNum;
+	   // Set no. of activation codes (numeric 1-9)
+	   int ACodeNum;
 
-	// Set strobe (on/off)
-	int strobe;
+	   // Set no. of deactivation codes (numeric 1-9)
+	   int DCodeNum;
 
-	// Set piezos (on/off)
-	int piezos;
+	   // Set strobe (on/off)
+	   int strobe;
 
-	// Commit all variables to EEPROM (byte no, value)
-	EEPROM.write(0, gamemode);
-	EEPROM.write(1, kcard);
-	EEPROM.write(2, codem);
-	EEPROM.write(3, ACodeNum);
-	EEPROM.write(4, DCodeNum);
-	EEPROM.write(5, strobe);
-	EEPROM.write(6, piezos);
+	   // Set piezos (on/off)
+	   int piezos;
+
+	   // Commit all variables to EEPROM (byte no, value)
+	   EEPROM.write(0, gamemode);
+	   EEPROM.write(1, kcard);
+	   EEPROM.write(2, codem);
+	   EEPROM.write(3, ACodeNum);
+	   EEPROM.write(4, DCodeNum);
+	   EEPROM.write(5, strobe);
+	   EEPROM.write(6, piezos);
+	   */
 }
