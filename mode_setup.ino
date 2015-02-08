@@ -110,12 +110,25 @@ void writeMultipleChoice(String message, String a, String b)
 	lcd.print(b);
 }
 
+uint8_t getMultipleChoice(int num)
+{
+	char key = customKeypad.getKey();
+	if (!key || !isLetterInput(key)) {
+		return 0;
+	}
+	key -= 'a';
+	if (key >= num)
+		return 0;
+	return key;
+}
+
 
 void setup_loop()
 {
 	if (isAllDone) return;
 
 	char key;
+	uint8_t res;
 	switch (setupStage) {
 	case GameMode: {
 		if (!hasShownMessage) {
@@ -123,12 +136,11 @@ void setup_loop()
 			hasShownMessage = true;
 			return;
 		}
-		key = customKeypad.getKey();
-		if (!key || !isLetterInput(key)) {
+
+		res = getMultipleChoice(4);
+		if (!res)
 			return;
-		}
-		int gamemode = static_cast<int>(key);
-		EEPROM.write(EPGamemode, gamemode);
+		EEPROM.write(EPGamemode, res);
 
 		// reset for the next stage
 		setupStage = KeyCard;
@@ -142,11 +154,11 @@ void setup_loop()
 			hasShownMessage = true;
 			return;
 		}
-		key = customKeypad.getKey();
-		if (!key || !(key == 'a' || key == 'b')) {
+
+		res = getMultipleChoice(2);
+		if (!res)
 			return;
-		}
-		EEPROM.write(EPKeycardsEnabled, key == 'a' ? 1 : 0);
+		EEPROM.write(EPKeycardsEnabled, res);
 
 		// reset for the next stage
 		setupStage = ArmTime;
@@ -163,11 +175,11 @@ void setup_loop()
 			hasShownMessage = true;
 			return;
 		}
-		uint8_t len = getMultiInput();
-		if (!len)
-			return;
 
-		EEPROM.write(EPArmLength, len);
+		res = getMultiInput();
+		if (!res)
+			return;
+		EEPROM.write(EPArmLength, res);
 
 		// reset for the next stage
 		setupStage = CodeMethod;
