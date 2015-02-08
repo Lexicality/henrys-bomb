@@ -19,7 +19,7 @@ const int maxArmInputs = 4;
 char armInput[maxArmInputs];
 int numArmInputs;
 
-void program_setup()
+void setup_setup()
 {
 	lcd.setCursor(0, 5);
 	lcd.print("Program Mode");
@@ -32,7 +32,7 @@ void program_setup()
 }
 
 
-void program_loop()
+void setup_loop()
 {
 	if (isAllDone) return;
 

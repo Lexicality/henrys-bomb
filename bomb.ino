@@ -3,7 +3,7 @@
 #include "EEPROM.h"
 
 enum Mode {
-	Program,
+	Setup,
 	Play
 };
 
@@ -46,7 +46,7 @@ Keypad customKeypad = Keypad(makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS)
 
 void setup()
 {
-	// mode = Program;
+	// mode = Setup;
 	mode = Play;
 	lcd.begin(21, 4);
 
@@ -55,11 +55,11 @@ void setup()
 	lcd.setCursor(0, 1);
 	lcd.print("butts");
 
-	// if (mode == Program) {
-	// 	program_setup();
-	// } else {
-	// 	play_setup();
-	// }
+	 if (mode == Setup) {
+	 	setup_setup();
+	 } else {
+	 	play_setup();
+	 }
 }
 
 char lastKey = 0;
@@ -82,9 +82,9 @@ void loop()
 	lcd.setCursor(0, 3);
 	// print the number of seconds since reset:
 	lcd.print(millis() / 1000);
-	// if (mode == Program) {
-	// 	program_loop();
-	// } else {
-	// 	play_loop();
-	// }
+	 if (mode == Setup) {
+	 	setup_loop();
+	 } else {
+	 	play_loop();
+	 }
 }
